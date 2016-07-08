@@ -8,9 +8,11 @@ Get-ChildItem -Path "D:\test\*" -Include $exts |
 ForEach-Object {
 	cmd /c regsvr32 /s $_.FullName
 	if ($?) {
-		"$($_.Name) registered correctly."
+		Write-Host -NoNewline -ForegroundColor Green "$($_.Name)"
+		Write-Host " registered correctly."
 	} else {
-		"$($_.Name) failed to register. ($LASTEXITCODE)"
+		Write-Host -NoNewline -ForegroundColor Red "$($_.Name)"
+		Write-Host " failed to register. ($LASTEXITCODE)"
 	}
 }
 
