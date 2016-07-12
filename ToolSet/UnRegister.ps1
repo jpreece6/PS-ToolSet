@@ -2,9 +2,9 @@
 # UnRegister.ps1
 #
 
-$exts = "*.dll", "*.ocx"
+$EXTS = "*.dll", "*.ocx"
 
-Get-ChildItem -Path "D:\test\*" -Include $exts |
+Get-ChildItem -Path "D:\test\*" -Include $EXTS |
 ForEach-Object {
 	cmd /c regsvr32 /s $_.FullName
 	if ($?) {
