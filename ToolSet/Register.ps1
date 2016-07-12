@@ -1,11 +1,21 @@
 #
-# Register.ps1
+# Name: Register.ps1
+# Author: Josh Preece
+# Description: Script to register (ActiveX) .dll and .ocx files using regsvr32
 #
 
 # GLOBALS
 $EXTS = "*.dll", "*.ocx"
 
-Get-ChildItem -Path "D:\test\*" -Include $EXTS |
+# Return the execution directory of this script
+function Get-ScriptDirectory
+{
+	$Invocation = (Get-Variable MyInvocation -Scope 1).Value
+	Split-Path $Invocation.MyCommand.Path
+}
+
+# Filter for all .dll and .ocx files to register them using regsvr23
+Get-ChildItem -Path "$(Get-ScriptDirectory)\*" -Include $EXTS |
 ForEach-Object {
 	cmd /c regsvr32 /s $_.FullName
 	if ($?) {
